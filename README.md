@@ -6,31 +6,44 @@
 
 *The Air Travel Assistant is designed to be flexible and easy to extend to any functionalities you wish to add—like extended logging, integrating with additional APIs for more complex queries, and advanced processing of information. For now, it answers all the questions of any user trying to find information about flights, their status, and analytics such as performance, on-time rates, and recommendations. The architecture is built for real-world use, with a focus on clarity and maintainability.*
 
+## **Prerequisites**
+
+Before you begin, ensure you have:
+- Python 3.8 or higher installed
+- A Google Cloud account with BigQuery enabled
+- An AviationStack API account
+- Google Cloud SDK installed and configured
+
+> *Why these requirements?* Each component is essential for the system to function properly. Python 3.8+ ensures compatibility with all dependencies, while the cloud services provide the necessary data and AI capabilities.
+
 ---
 
 ## **How to Get Up and Running**
 
-**1. Download the Code**
+**1. Check Prerequisites**
+- Ensure you have all the required components listed in the Prerequisites section above.
+
+**2. Download the Code**
 - Open your terminal and run:
   ```bash
   git clone [your-repository-url]
   cd air-travel-assistant
   ```
 
-**2. Set Up Your Python Environment**
+**3. Set Up Your Python Environment**
 - Create a virtual environment to keep dependencies isolated:
   ```bash
   python -m venv venv
   source venv/bin/activate  # On Windows: venv\Scripts\activate
   ```
 
-**3. Install All Required Packages**
+**4. Install All Required Packages**
 - With your environment active, install dependencies:
   ```bash
   pip install -r requirements.txt
   ```
 
-**4. Prepare Your API Keys and Environment Variables**
+**5. Prepare Your API Keys and Environment Variables**
 - Copy the example environment file and fill in your keys:
   ```bash
   cp .env.example .env
@@ -41,13 +54,13 @@
   # FLASK_SECRET_KEY=your_flask_secret
   ```
 
-**5. Authenticate with Google Cloud**
+**6. Authenticate with Google Cloud**
 - Make sure you're logged in and have the right permissions:
   ```bash
   gcloud auth application-default login
   ```
 
-**6. Start the Application**
+**7. Start the Application**
 - Launch the server:
   ```bash
   python main.py
@@ -100,6 +113,19 @@
 - **Contextual Memory:** Remembers user context and query history, enabling natural follow-up questions and personalization.
 - **Human-Readable Summaries:** All analytics and status responses are summarized in clear, concise language using Gemini.
 - **Structured Error Handling:** Every error is returned as a structured JSON object with actionable suggestions—no cryptic stack traces.
+
+> *Not familiar with some terms?* Check the Key Terms section below for explanations of the technologies we use.
+
+## **Key Terms Explained**
+
+To help you understand how the system works, here are some important terms:
+
+- **LLM (Large Language Model)**: The AI system that powers our query understanding and response generation. It helps make the assistant feel more natural and human-like.
+- **Gemini**: Google's advanced AI model that we use for understanding complex queries and creating clear, concise summaries of flight data.
+- **BigQuery**: Google's powerful data warehouse that stores our historical flight data, enabling detailed analytics and insights.
+- **AviationStack**: The service that provides us with real-time flight information, ensuring you get the most up-to-date status updates.
+
+> *Why these technologies?* We've chosen each component carefully to balance performance, cost, and reliability. The combination of these services allows us to provide fast, accurate, and user-friendly responses.
 
 ---
 
@@ -166,6 +192,16 @@ Every error is handled with the end user in mind. Instead of cryptic errors, you
 ```
 This makes both debugging and user support dramatically easier.
 
+## **Common Issues and Solutions**
+
+While the system is designed to be reliable, here are some common issues you might encounter and how to resolve them:
+
+- **API Key Errors**: If you see authentication errors, check that your `.env` file is properly configured with all required API keys.
+- **Google Cloud Authentication**: If BigQuery queries fail, run `gcloud auth application-default login` to refresh your credentials.
+- **Port Already in Use**: If you can't start the server, change the port in `main.py` if 5000 is already occupied.
+
+> *Why these issues?* These are common setup challenges that can occur due to environment configuration or system state. We've made the solutions as straightforward as possible.
+
 ---
 
 ## **Deployment & Production Notes**
@@ -174,7 +210,6 @@ This makes both debugging and user support dramatically easier.
 - Agents are modular—add new analytics or data sources by subclassing and registering new agents.
 - The system like I mentioned is readily designed for extensibility: swap out the LLM, add new APIs, or integrate with notification services (e.g., Twilio, SendGrid) as needed.
 - For production, set strong secrets and use HTTPS. Monitor API quotas and error logs.
-
 
 ---
 
